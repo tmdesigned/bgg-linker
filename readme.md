@@ -1,6 +1,6 @@
 # BGG Linker
 
-![Demo](https://github.com/tmdesigned/bgg-linker/demo.gif)
+![Demo](https://github.com/tmdesigned/bgg-linker/blob/master/demo.gif)
 
 ## About
 
