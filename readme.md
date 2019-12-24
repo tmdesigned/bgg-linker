@@ -1,5 +1,7 @@
 # BGG Linker
 
+![Demo](https://github.com/tmdesigned/bgg-linker/demo.gif)
+
 ## About
 
 This is a simple Chrome extension that uses Amazon product titles to create quick links to related BoardGameGeek.com entries.
