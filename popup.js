@@ -27,7 +27,10 @@ function search(query) {
   searchBGG(encodeURIComponent(query), function(response) {
     var list = buildList(response);
     if (!list) {
-      list = "<div class='notice'>No results for \"" + query + '"</div>';
+      list =
+        "<div class='notice'>No results for \"" +
+        query +
+        '. Try adjusting the query above."</div>';
     }
     output(list);
   });
