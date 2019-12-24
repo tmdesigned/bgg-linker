@@ -46,3 +46,22 @@ hr {
   margin: 1rem 0 0.5rem 0;
   border: 1px solid #ccc;
 }
+
+.list-item {
+  display: flex;
+}
+
+.list-item__thumbnail img {
+  height: auto;
+  margin-right: 1rem;
+  max-width: 50px;
+}
+
+li {
+  list-style: none;
+  padding-left: 0;
+}
+
+ul {
+  padding-left: 1rem;
+}

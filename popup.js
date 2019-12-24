@@ -54,21 +54,76 @@ function searchBGG(query, callback) {
   xhr.send();
 }
 
-//format resultt
+//format result
 function buildList(responseXML) {
   var txt = "<ul>";
   var x = responseXML.getElementsByTagName("boardgame");
   if (x.length < 1) {
     return null;
   }
-  for (var i = 0; i < x.length; i++) {
+  var length = x.length > 9 ? 9 : x.length;
+  for (let i = 0; i < length; i++) {
+    let oid = x[i].getAttribute("objectid");
+    setTimeout(function() {
+      fetchDetails(oid, addDetails);
+    }, 500 * i);
     txt +=
-      "<li><a href='https://www.boardgamegeek.com/boardgame/" +
-      x[i].getAttribute("objectid") +
-      "' target='_blank'><strong>" +
-      x[i].textContent;
-    "</strong> <i>(" + "2000" + ")</i></li>";
+      "<li><div class='list-item' id='item-" +
+      oid +
+      "'><div class='list-item__thumbnail'></div><div class='list-item__details'><a href='https://www.boardgamegeek.com/boardgame/" +
+      oid +
+      "' target='_blank' class='list-item__link'>" +
+      x[i].textContent +
+      "</a><br /><span class='list-item__rank'></strong></div></div></li>";
   }
   txt += "</ul>";
   return txt;
+}
+
+function addDetails(oid, xml) {
+  var rank = getRank(xml);
+  var thumbnail = getThumbnail(xml);
+  addRank(oid, rank);
+  addThumbnail(oid, thumbnail);
+}
+
+function getRank(xml) {
+  var raw = xml.getElementsByTagName("average");
+  if (raw.length < 1) {
+    return "";
+  }
+  var rawUsers = xml.getElementsByTagName("usersrated");
+  var votes = rawUsers.length > 0 ? rawUsers[0].textContent : "";
+  var rank = Math.round(Number(raw[0].textContent) * 10) / 10;
+  return `${rank}/10 (${votes} votes)`;
+}
+
+function addRank(oid, rank) {
+  document.querySelector("#item-" + oid + " .list-item__rank").innerHTML = rank;
+}
+
+function getThumbnail(xml) {
+  var raw = xml.getElementsByTagName("thumbnail");
+  if (raw.length < 1) {
+    return "";
+  }
+  return raw[0].textContent;
+}
+
+function addThumbnail(oid, thumbnail) {
+  document.querySelector("#item-" + oid + " .list-item__thumbnail").innerHTML =
+    "<img src='" + thumbnail + "' alt=''/>";
+}
+
+function fetchDetails(oid, callback) {
+  var xhr = new XMLHttpRequest();
+  xhr.onreadystatechange = function() {
+    if (xhr.readyState == 4) {
+      callback(oid, xhr.responseXML);
+    }
+  };
+  var url =
+    "https://www.boardgamegeek.com/xmlapi/boardgame/" + oid + "?stats=1";
+  xhr.open("GET", url, true);
+  xhr.send();
 }
