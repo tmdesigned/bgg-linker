@@ -1,0 +1,48 @@
+html {
+  width: 320px;
+  min-height: 200px;
+}
+
+body {
+  background: #133386;
+  color: #fff;
+}
+
+input {
+  border: 1px solid #fff;
+  padding: 0.25rem;
+  background: transparent;
+  color: #fff;
+}
+
+input[type="text"] {
+  width: 200px;
+}
+
+input[type="submit"] {
+  transition: 0.3s;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+input:hover[type="submit"] {
+  background: #fff;
+  color: #133386;
+}
+
+a {
+  color: #fff;
+}
+
+li {
+  padding: 0.25rem;
+}
+
+a:visited {
+  color: #bbb;
+}
+
+hr {
+  margin: 1rem 0 0.5rem 0;
+  border: 1px solid #ccc;
+}
